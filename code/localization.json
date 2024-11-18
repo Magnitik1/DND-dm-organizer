@@ -1,7 +1,7 @@
 {
     "en": {
         "Campaign": "Campaign",
-        "monsters and NPC": "Monsters and NPC",
+        "NPC": "NPC",
         "fight": "Fight",
         "notepad": "Notepad",
         "music": "Music",
@@ -10,7 +10,7 @@
     },
     "ru": {
         "Campaign": "Кампания",
-        "monsters and NPC": "Монстры и NPC",
+        "NPC": "NPC",
         "fight": "Бой",
         "notepad": "Блокнот",
         "music": "Музыка",
@@ -19,7 +19,7 @@
     },
     "uk": {
         "Campaign": "Кампанія",
-        "monsters and NPC": "Монстри та NPC",
+        "NPC": "NPC",
         "fight": "Бій",
         "notepad": "Нотатник",
         "music": "Музика",
@@ -28,7 +28,7 @@
     },
     "pl": {
         "Campaign": "Kampania",
-        "monsters and NPC": "Potwory i NPC",
+        "NPC": "NPC",
         "fight": "Walka",
         "notepad": "Notatnik",
         "music": "Muzyka",

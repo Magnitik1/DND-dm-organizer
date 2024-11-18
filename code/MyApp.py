@@ -4,15 +4,15 @@ from kivy.properties import (ObjectProperty)
 import config
 import json
 
-# translation = None
-# with open("localization.json", "r", encoding="utf-8") as f:
-#     translations = json.load(f)
-#     print(translations)
+data = ""
+with open('./code/localization.json', 'r', encoding='utf-8') as file:
+    data = json.load(file)
 
 
 class MyGrid(BoxLayout):
     redBtn = ObjectProperty(None)
     lastRedBtn = None
+    translation = data[config.language]
 
     def on_redBtn(self, i, btn):
         btn.background_color = (0.0, 0.0, 1.0, 1.0)
@@ -23,7 +23,6 @@ class MyGrid(BoxLayout):
     def campaign(self, text, btn):
         self.ids.label1.text = text
         self.redBtn = btn
-        print(config.language)
 
 
 class MyApp(App):

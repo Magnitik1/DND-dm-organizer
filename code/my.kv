@@ -7,46 +7,46 @@
         width: root.width
         Button:
             id: btn1
-            text: 'Button 1'
-            background_color:(0.0, 0.0, 1.0, 1.0)
+            text: root.translation["Campaign"]
+            background_color: (0.0, 0.0, 1.0, 1.0)
             size_hint_x: 0.1
-            on_press: root.campaign("text 1", self)
+            on_press: root.campaign("Campaign", self)
         Button:
             id: btn2
-            background_color:(0.0, 1.0, 0.0, 1.0)
-            text: 'Button 2'
+            background_color: (0.0, 1.0, 0.0, 1.0)
+            text: root.translation["NPC"]
             size_hint_x: 0.1
-            on_press: root.campaign("text 2",self)
+            on_press: root.campaign("NPC", self)
         Button:
             id: btn3
-            background_color:(0.0, 1.0, 0.0, 1.0)
-            text: 'Button 3'
+            background_color: (0.0, 1.0, 0.0, 1.0)
+            text: root.translation["fight"]
             size_hint_x: 0.1
-            on_press: root.campaign("text 3", self)
+            on_press: root.campaign("Fight", self)
         Button:
             id: btn4
-            background_color:(0.0, 1.0, 0.0, 1.0)
-            text: 'Button 4'
+            background_color: (0.0, 1.0, 0.0, 1.0)
+            text: root.translation["notepad"]
             size_hint_x: 0.1
-            on_press: root.campaign("text 4", self)
+            on_press: root.campaign("Notepad", self)
         Button:
             id: btn5
-            background_color:(0.0, 1.0, 0.0, 1.0)
-            text: 'Button 5'
+            background_color: (0.0, 1.0, 0.0, 1.0)
+            text: root.translation["music"]
             size_hint_x: 0.1
-            on_press: root.campaign("text 5", self)
+            on_press: root.campaign("Music", self)
         Button:
             id: btn6
-            background_color:(0.0, 1.0, 0.0, 1.0)
-            text: 'Button 6'
+            background_color: (0.0, 1.0, 0.0, 1.0)
+            text: root.translation["spells"]
             size_hint_x: 0.1
-            on_press: root.campaign("text 6", self)
+            on_press: root.campaign("Spells", self)
         Button:
             id: btn7
-            background_color:(0.0, 1.0, 0.0, 1.0)
-            text: 'Button 7'
+            background_color: (0.0, 1.0, 0.0, 1.0)
+            text: root.translation["equipment"]
             size_hint_x: 0.1
-            on_press: root.campaign("text 7", self)
+            on_press: root.campaign("Equipment", self)
     Label:
         id: label1
         text: "some text, ave"
