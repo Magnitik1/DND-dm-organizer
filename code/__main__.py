@@ -1,2 +1,4 @@
+from MyApp import MyApp
+
 if __name__ == '__main__':
-    print('PyCharm')
+    MyApp().run()

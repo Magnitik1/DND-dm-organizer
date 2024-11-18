@@ -1,0 +1,53 @@
+<MyGrid>
+    redBtn: btn1
+    orientation: "vertical"
+    BoxLayout:
+        size_hint_y: None
+        height: 50
+        width: root.width
+        Button:
+            id: btn1
+            text: 'Button 1'
+            background_color:(0.0, 0.0, 1.0, 1.0)
+            size_hint_x: 0.1
+            on_press: root.campaign("text 1", self)
+        Button:
+            id: btn2
+            background_color:(0.0, 1.0, 0.0, 1.0)
+            text: 'Button 2'
+            size_hint_x: 0.1
+            on_press: root.campaign("text 2",self)
+        Button:
+            id: btn3
+            background_color:(0.0, 1.0, 0.0, 1.0)
+            text: 'Button 3'
+            size_hint_x: 0.1
+            on_press: root.campaign("text 3", self)
+        Button:
+            id: btn4
+            background_color:(0.0, 1.0, 0.0, 1.0)
+            text: 'Button 4'
+            size_hint_x: 0.1
+            on_press: root.campaign("text 4", self)
+        Button:
+            id: btn5
+            background_color:(0.0, 1.0, 0.0, 1.0)
+            text: 'Button 5'
+            size_hint_x: 0.1
+            on_press: root.campaign("text 5", self)
+        Button:
+            id: btn6
+            background_color:(0.0, 1.0, 0.0, 1.0)
+            text: 'Button 6'
+            size_hint_x: 0.1
+            on_press: root.campaign("text 6", self)
+        Button:
+            id: btn7
+            background_color:(0.0, 1.0, 0.0, 1.0)
+            text: 'Button 7'
+            size_hint_x: 0.1
+            on_press: root.campaign("text 7", self)
+    Label:
+        id: label1
+        text: "some text, ave"
+        size: self.texture_size
