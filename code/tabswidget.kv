@@ -1,0 +1,18 @@
+#:import current_locale_data mylocalisation.current_locale_data
+
+<_TabMenuBarButton>
+    text: current_locale_data[self.tabmodule_ID]
+    background_color:
+        (self.background_selected,
+        self.background_default)[self.is_selected]
+    size_hint_x: 0.1
+
+<TabsWidget>
+    orientation: "vertical"
+    BoxLayout:
+        id: tabs_menu_bar
+        size_hint_y: None
+        height: 50
+        width: root.width
+    BoxLayout:
+        id: content_area
