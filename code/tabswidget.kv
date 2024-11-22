@@ -9,10 +9,11 @@
 
 <TabsWidget>
     orientation: "vertical"
+    tab_manager:tab_manager
     BoxLayout:
         id: tabs_menu_bar
         size_hint_y: None
         height: 50
         width: root.width
-    BoxLayout:
-        id: content_area
+    ScreenManager:
+        id: tab_manager

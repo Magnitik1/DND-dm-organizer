@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from kivy.uix.widget import Widget
+from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.uix.button import Button
 from kivy.uix.boxlayout import BoxLayout
 from kivy.event import EventDispatcher
@@ -15,10 +16,9 @@ from kivy.properties import (
 from kivyutils import load_kv_for
 
 import importlib as _importlib
-
 import typing
-
 import functools
+from collections import OrderedDict
 
 #The keys for the translated text used in tab name display
 tabmodule_IDs=["Campaign","NPC","fight","notepad","music","spells","equipment"]
@@ -48,8 +48,11 @@ class _TabMenuBarButton(Button):
 class Tab:
   """A class that represents a single tab"""
   tabmodule_ID:str
-  tabmodule_Widget:Widget
+  tabmodule_Screen:Screen
+
+  #assigned by the loading TabsWidget
   _assigned_Button = typing.cast(_TabMenuBarButton,None)
+  _tab_order_id = 0
 
 
 class TabsWidget(BoxLayout,Widget):
@@ -59,21 +62,30 @@ class TabsWidget(BoxLayout,Widget):
   #Going through a fake cast, because
   #ListProperty doesn't have typing information, for some reason
   tabs = typing.cast(list[Tab],ListProperty())
+  #kv assigned
+  tab_manager:ScreenManager = ObjectProperty()
   _tabs_by_IDs:dict[str,Tab]
 
   @staticmethod
   def on_tabs(inst:TabsWidget,tabs:list[Tab]):
     menu_bar:Widget=inst.ids.tabs_menu_bar
+    #Reset all
     menu_bar.clear_widgets()
     inst._tabs_by_IDs.clear()
+    inst.tab_manager.clear_widgets()
     if len(inst.tabs) < 0:
       return
-    for tab in tabs:
+    for tab, tab_order_id in zip(tabs,range(len(tabs))):
+      #Add button to menu
       btn = _TabMenuBarButton(tab.tabmodule_ID)
       btn.on_press = functools.partial(inst.on_tabmenubarbutton_press,btn)
       menu_bar.add_widget(btn)
+      #Backlink tab to button, and record tab order
       tab._assigned_Button = weakref.proxy(btn)
+      tab._tab_order_id = tab_order_id
       inst._tabs_by_IDs[tab.tabmodule_ID]=tab
+      
+      inst.tab_manager.add_widget(tab.tabmodule_Screen)
     if inst.selected_tab is None:
       inst.selected_tab=inst.tabs[0]
     
@@ -87,14 +99,18 @@ class TabsWidget(BoxLayout,Widget):
 
   @staticmethod
   def on_selected_tab(inst:TabsWidget,tab:Tab):
+    prev_order_id=0
     #SwitchButtonColors
     if inst.selected_tab_previous is not None:
       inst.selected_tab_previous._assigned_Button.is_selected=False
+      prev_order_id = inst.selected_tab_previous._tab_order_id
     tab._assigned_Button.is_selected=True
-    #ContentAreaSwitch
-    content_area:Widget=inst.ids.content_area
-    content_area.clear_widgets()
-    content_area.add_widget(tab.tabmodule_Widget)
+    #Tab switch
+    now_order_id= tab._tab_order_id
+    inst.tab_manager.transition.direction = \
+      "left" if now_order_id>prev_order_id else "right"
+
+    inst.tab_manager.current = tab.tabmodule_ID
     #end
     inst.selected_tab_previous=tab
 
@@ -113,6 +129,6 @@ def load_tabmodules(tabmodule_IDs=tabmodule_IDs):
   for [tabmodule_ID,tabmodule_name] in zip(tabmodule_IDs,tabmodule_names):
     tabmodule=_importlib.import_module("tabmodules."+tabmodule_name, package=None)
     #instantiate the exported class
-    tab_Widget:Widget=tabmodule.tabmodule_tab_export()
-    tabs.append(Tab(tabmodule_ID,tab_Widget))
+    tab_Screen:Screen=tabmodule.tabmodule_tab_export(name=tabmodule_ID)
+    tabs.append(Tab(tabmodule_ID,tab_Screen))
   return tabs
