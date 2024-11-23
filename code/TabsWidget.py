@@ -127,8 +127,22 @@ def load_tabmodules(tabmodule_IDs=tabmodule_IDs):
   tabmodule_names = to_tabmodule_names(tabmodule_IDs)
   tabs:list[Tab] = []
   for [tabmodule_ID,tabmodule_name] in zip(tabmodule_IDs,tabmodule_names):
-    tabmodule=_importlib.import_module("tabmodules."+tabmodule_name, package=None)
+    module_path="tabmodules."+tabmodule_name
+    #load python module
+    tabmodule_tab_export=_get_tabmodule_export(module_path) \
+      or _get_tabmodule_export(module_path+"."+tabmodule_name)
+      #special case for .py file of same name as it's dir^
+    if tabmodule_tab_export is None:
+      raise Exception("Loaded module "+tabmodule_ID+" does not export tab")
+
     #instantiate the exported class
-    tab_Screen:Screen=tabmodule.tabmodule_tab_export(name=tabmodule_ID)
+    tab_Screen=tabmodule_tab_export(name=tabmodule_ID)
     tabs.append(Tab(tabmodule_ID,tab_Screen))
   return tabs
+
+def _get_tabmodule_export(tabmodule_path)->typing.Optional[type[Screen]]:
+  tabmodule=_importlib.import_module(tabmodule_path, package=None)
+  if hasattr(tabmodule,"tabmodule_tab_export"):
+    return getattr(tabmodule,"tabmodule_tab_export")
+  else:
+    return None
