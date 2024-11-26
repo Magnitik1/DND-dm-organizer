@@ -3,10 +3,13 @@ from kivyutils import load_kv_for
 
 load_kv_for(__file__)
 
-#exported to the tab loader, and instantiated only when accessed
-class NotepadTab(Screen):
-  pass
 
-#used by the tab module importer
-#must be a `kivy.uix.screenmanager.Screen` subclass 
-tabmodule_tab_export=NotepadTab
+# exported to the tab loader, and instantiated only when accessed
+class NotepadTab(Screen):
+    pass
+
+
+# used by the tab module importer
+# must be a `kivy.uix.screenmanager.Screen` subclass
+
+tabmodule_tab_export = NotepadTab
