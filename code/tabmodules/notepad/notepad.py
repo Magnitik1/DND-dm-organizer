@@ -5,7 +5,10 @@ load_kv_for(__file__)
 
 #exported to the tab loader, and instantiated only when accessed
 class NotepadTab(Screen):
-  pass
+  name = None
+  subtext = None
+  color = "#E4E181"
+
 
 #used by the tab module importer
 #must be a `kivy.uix.screenmanager.Screen` subclass 

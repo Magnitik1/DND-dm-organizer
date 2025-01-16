@@ -3,8 +3,11 @@
 <_TabMenuBarButton>
     text: current_locale_data[self.tabmodule_ID]
     background_color:
-        (self.background_selected,
-        self.background_default)[self.is_selected]
+        self.background_color_pressed if self.state == "down" \
+        else self.background_selected if self.is_selected \
+        else self.background_default
+    background_normal:''
+    background_down:''
     size_hint_x: 0.1
 
 <TabsWidget>
@@ -17,3 +20,4 @@
         width: root.width
     ScreenManager:
         id: tab_manager
+
